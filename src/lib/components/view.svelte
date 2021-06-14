@@ -25,9 +25,12 @@
 					const scroll = container.parentElement.parentElement.parentElement.scrollTop;
 					container.innerHTML = code;
 					delete container.dataset.processed;
-					mermaid.initialize(Object.assign({}, JSON.parse(state.mermaid)));
+					mermaid.initialize(
+						Object.assign({}, JSON.parse(state.mermaid), { securityLevel: 'loose' })
+					);
 					mermaid.render('graph-div', code, (svgCode) => {
 						container.innerHTML = svgCode;
+						container.children[0].style.backgroundColor = '#282828';
 					});
 					container.parentElement.parentElement.parentElement.scrollTop = scroll;
 					error = false;
